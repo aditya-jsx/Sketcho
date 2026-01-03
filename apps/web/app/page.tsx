@@ -1,4 +1,4 @@
-import { AuthScreen } from "../components/auth";
+import { AuthScreen } from "./components/auth";
 
 export default function Home() {
   return (
