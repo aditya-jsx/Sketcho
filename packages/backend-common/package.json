@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "exports": {
-    "./config": "./src/config.ts"
+    "./config": {
+      "types": "./dist/config.d.ts",
+      "require": "./dist/config.js",
+      "import": "./dist/config.js"
+    }
   },
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
