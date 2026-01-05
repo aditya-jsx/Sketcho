@@ -132,7 +132,9 @@ app.post("/signin", async (req, res) => {
 })
 
 app.post("/create-room", Auth, (req, res) => {
-    
+    res.json({
+        roomsId: 123123
+    })
 })
 
 app.listen(3001);
