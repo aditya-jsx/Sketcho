@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import { prisma } from "@repo/db/client";
 import jwt from "jsonwebtoken"
 import { Auth } from "./middlewares/middleware";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -19,13 +21,14 @@ app.post("/signup", async (req, res) => {
       return;
     }
     const { name, username, password } = requiredBody.data;
+    // console.log("DB URL:", process.env.DATABASE_URL);
 
     
     try{
         // hashing password
         const hashedPassword = await bcrypt.hash(password, 10);
         // checking user in the db
-        const existingUser = await prisma.user.findMany({ where: { username: username } });
+        const existingUser = await prisma.user.findFirst({ where: { username: username } });
 
         if(existingUser){
             res.status(401).json({
@@ -66,6 +69,7 @@ app.post("/signin", async (req, res) => {
       return;
     }
     const { username, password } = requiredBody.data;
+    // console.log(JWT_SECRET);
 
     try{
         // checking if the user exists
