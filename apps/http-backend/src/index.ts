@@ -141,4 +141,19 @@ app.post("/create-room", Auth, (req, res) => {
     })
 })
 
+app.get("/chats/:roomId", async function (req, res){
+    const roomId = Number(req.params.roomId);
+
+    // this will give us all the messages in the chat room, and it'll give us the latest 50 messages 
+    const messages = await prisma.chat.findMany({
+        where: {
+            roomId: roomId
+        },
+        orderBy: {
+            id: "desc",
+        },
+        take: 50
+    });
+})
+
 app.listen(3001);
